@@ -6,9 +6,9 @@ import (
 
 type ListNode struct {
 	data int
+	prev *ListNode
 	next *ListNode
 }
-
 type LinkedList struct {
 	Head *ListNode
 	len  int
@@ -23,9 +23,10 @@ func (l *LinkedList) AddNodeToFront(data int) {
 		l.len++
 		return
 	} else {
-		n.next = l.Head
-		l.Head = &n
 
+		n.next = l.Head
+		l.Head.prev = &n
+		l.Head = &n
 		l.len++
 		return
 	}
@@ -36,7 +37,6 @@ func (l *LinkedList) AddNodeToBack(data int) {
 	if l.len == 0 {
 		n := ListNode{}
 		n.data = data
-
 		l.Head = &n
 		l.len++
 
@@ -47,13 +47,14 @@ func (l *LinkedList) AddNodeToBack(data int) {
 			current = current.next
 		}
 		current.next = &last
-
+		last.prev = current
 		l.len++
 		return
 
 	}
 
 }
+
 func (l *LinkedList) AddNodeToBetween(data, num int) {
 	n := ListNode{}
 
@@ -64,13 +65,17 @@ func (l *LinkedList) AddNodeToBetween(data, num int) {
 	} else {
 		current := l.Head
 		prev := current
+
 		for i := 0; i < num-1; i++ {
 			prev = current
 			current = current.next
 		}
+
 		n.data = data
 		prev.next = &n
+		n.prev = prev
 		n.next = current
+		current.prev = &n
 		l.len++
 		return
 	}
@@ -80,6 +85,7 @@ func (l *LinkedList) RemoveFromFront() {
 		fmt.Println("Don't have Node")
 	}
 	l.Head = l.Head.next
+	l.Head.next.prev = nil
 	l.len--
 }
 func (l *LinkedList) RemoveFromBack() {
@@ -94,6 +100,7 @@ func (l *LinkedList) RemoveFromBack() {
 	}
 	if prev != nil {
 		prev.next = nil
+		current.prev = nil
 	} else {
 		l.Head = nil
 	}
@@ -123,15 +130,15 @@ func (l *LinkedList) RemoveFromData(data int) {
 	} else {
 		var prev *ListNode
 		current := l.Head
-		prev = current
 
 		for i := 0; i < l.len; i++ {
+
+			prev = current
 			if current.data != data {
 				current = current.next
-				prev = current
 			} else {
 				if current.next != nil {
-					current = current.next
+					prev.next = current.next
 				} else {
 					prev.next = nil
 				}
@@ -148,6 +155,7 @@ func (l *LinkedList) RemoveFromData(data int) {
 
 	}
 }
+
 func (l *LinkedList) RemoveAll() {
 	if l.Head == nil {
 		fmt.Println("List is Empty")
@@ -155,10 +163,12 @@ func (l *LinkedList) RemoveAll() {
 	var prev *ListNode
 	current := l.Head
 	for current.next != nil {
+		current.prev = nil
 		prev = current
 		current = current.next
 		prev.next = nil
 	}
+	l.Head = nil
 	l.len = 0
 	return
 }
@@ -173,7 +183,6 @@ func (l *LinkedList) ListOfAll() {
 	}
 
 }
-
 func (l *LinkedList) SearchInList(data int) {
 
 	if l.Head == nil {
@@ -183,7 +192,6 @@ func (l *LinkedList) SearchInList(data int) {
 		current := l.Head
 
 		for i := 0; i < l.len; i++ {
-
 			if current.data == data {
 				fmt.Printf("Your Data %d your data count : %d", current.data, count)
 				fmt.Println()
@@ -192,8 +200,8 @@ func (l *LinkedList) SearchInList(data int) {
 				current = current.next
 				count++
 			}
-
 		}
+		fmt.Println(current.data)
 
 		if current.data != data {
 			fmt.Printf("%d not found in list", data)
@@ -210,12 +218,15 @@ func main() {
 
 	linkedList := InitList()
 	linkedList.AddNodeToFront(50)
-	linkedList.AddNodeToBack(80)
-	linkedList.AddNodeToFront(76)
-	linkedList.AddNodeToBetween(20, 2)
+	linkedList.AddNodeToFront(50)
+	linkedList.AddNodeToFront(50)
+	linkedList.AddNodeToFront(200)
 	fmt.Println(linkedList.len)
-	linkedList.RemoveFromData(76)
+	linkedList.AddNodeToBetween(100, 2)
+	linkedList.RemoveFromData(200)
 	fmt.Println(linkedList.len)
+
 	linkedList.ListOfAll()
+	linkedList.SearchInList(200)
 
 }
