@@ -1,4 +1,10 @@
-import "github.com/dgrijalva/jwt-go"
+package solid
+
+import (
+	"net/http"
+
+	"github.com/dgrijalva/jwt-go"
+)
 
 func extractUsername(header http.Header) string {
 	raw := header.Get("Authorization")
