@@ -11,20 +11,18 @@ type Storage struct {
 	items map[string]interface{}
 }
 
-// NewStorage provides a Storage interface.
+
 func NewStorage() *Storage {
 	return &Storage{
 		items: make(map[string]interface{}),
 	}
 }
 
-// Add adds a new item.
 func (s *Storage) Add(key string, item interface{}) error {
 	s.items[key] = item
 	return nil
 }
 
-// Get retrieves an item.
 func (s *Storage) Get(key string) (interface{}, error) {
 	user, ok := s.items[key]
 	if !ok {
@@ -33,7 +31,7 @@ func (s *Storage) Get(key string) (interface{}, error) {
 	return user, nil
 }
 
-// Delete deletes an item.
+
 func (s *Storage) Delete(key string) (interface{}, error) {
 	item, ok := s.items[key]
 	if !ok {
@@ -67,12 +65,11 @@ func (s *userStorageHandler) delete(key string) error {
 	return err
 }
 
-// Manager defines the user data manager.
 type Manager struct {
 	storage userStorage
 }
 
-// NewManager creates a new Manager.
+
 func NewManager(storage *Storage) *Manager {
 	return &Manager{
 		storage: &userStorageHandler{
@@ -88,7 +85,6 @@ func (m *Manager) AddUser(user *User) error {
 	return m.storage.add(user.ID, user)
 }
 
-// GetUser retrieves a user data.
 func (m *Manager) GetUser(id string) (*User, error) {
 	item, err := m.storage.get(id)
 	if err != nil {
@@ -101,7 +97,6 @@ func (m *Manager) GetUser(id string) (*User, error) {
 	return user, nil
 }
 
-// DeleteUser deletes a user data.
 func (m *Manager) DeleteUser(id string) error {
 	return m.storage.delete(id)
 }
