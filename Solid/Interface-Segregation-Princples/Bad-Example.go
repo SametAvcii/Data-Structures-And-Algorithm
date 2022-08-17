@@ -24,14 +24,12 @@ func (f FormulaCars) EnterPitStop() {
 	fmt.Println("Changed wheel")
 }
 func (f FormulaCars) OpenSunRoof() {
-	fmt.Println("Opened Sun Roof")
 }
 
 func (s SportCars) Run() {
 	fmt.Println("started car")
 }
 func (s SportCars) EnterPitStop() {
-	fmt.Println("Changed Wheel")
 }
 func (s SportCars) OpenSunRoof() {
 	fmt.Println("Opened Sun Roof")
@@ -43,7 +41,7 @@ func main() {
 		name:    "Vettel Cars",
 		sunroof: false,
 	}
-	
+
 	formulaCars.Run()
 	formulaCars.EnterPitStop()
 
