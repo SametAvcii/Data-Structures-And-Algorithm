@@ -70,6 +70,5 @@ func main() {
 	p.printStudentInfo(h)
 	p.printStudentInfo(ss)
 	p.printStudentInfo(sa)
-	
 
 }
