@@ -7,50 +7,49 @@ type Cars interface {
 }
 
 type SunRoof interface {
+	Cars
 	OpenSunRoof()
 }
 
 type PitStop interface {
+	Cars
 	EnterPitStop()
 }
 
 type FormulaCars struct {
 	name string
-	Cars
-	PitStop
 }
 
 type SportCars struct {
 	name string
-	Cars
-	SunRoof
 }
 
-func (f *FormulaCars) Run() {
+func (f FormulaCars) Run() {
 	fmt.Println("started car")
 }
-func (f *FormulaCars) EnterPitStop() {
+func (f FormulaCars) EnterPitStop() {
 	fmt.Println("Changed wheel")
 }
 
-func (s *SportCars) Run() {
+func (s SportCars) Run() {
 	fmt.Println("started car")
 }
 
-func (s *SportCars) OpenSunRoof() {
+func (s SportCars) OpenSunRoof() {
 	fmt.Println("Opened Sun Roof")
 }
 
 func main() {
-	var formulaCars FormulaCars
+	var formulaCars PitStop
 	formulaCars = FormulaCars{
 		name: "Vettel",
 	}
+
 	formulaCars.Run()
 	formulaCars.EnterPitStop()
 
-	var sportCars SportCars
-	
+	var sportCars SunRoof
+
 	sportCars = SportCars{
 		name: "BMW",
 	}
