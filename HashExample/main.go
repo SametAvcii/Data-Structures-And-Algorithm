@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	pass := "abcd12A."
+	pass := "abcd12DfdsfdsfsdSAA."
 
 	hashPass := Hash(pass)
 	decPass := DecyrptHash(hashPass)
@@ -21,8 +21,6 @@ func main() {
 func Hash(pass string) string {
 
 	passArr := strings.Split(pass, "")
-	lenPass := len(passArr)
-	fmt.Println(lenPass)
 
 	var arr []string
 	for _, passChar := range passArr {
@@ -83,7 +81,7 @@ func DecyrptHash(pass string) string {
 		if digit[(lastIndis)] == "3" {
 
 			ascVal += digit[1]
-			digit0, _ := strconv.Atoi(digit[0]) //100
+			digit0, _ := strconv.Atoi(digit[0]) 
 			digit1, _ := strconv.Atoi(digit[1])
 
 			digit = digit[2 : len(digit)-1]
@@ -131,9 +129,4 @@ func DecyrptHash(pass string) string {
 	return decHash
 
 }
-func reverse(str string) (result string) {
-    for _, v := range str {
-        result = string(v) + result
-    }
-    return
-}
+
