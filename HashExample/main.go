@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	pass := "abcd12DfdsfdsfsdSAA."
+	pass := "merhaba YM-LAB-3"
 
 	hashPass := Hash(pass)
 	decPass := DecyrptHash(hashPass)
@@ -47,8 +47,9 @@ func Hash(pass string) string {
 
 	for _, val := range arr {
 
-		hashValue += "23" + val
+		hashValue += "180" + val
 	}
+	fmt.Println(hashValue)
 	return hashValue
 }
 func findDigitSum(num int) (int, int) {
@@ -64,7 +65,7 @@ func findDigitSum(num int) (int, int) {
 
 func DecyrptHash(pass string) string {
 
-	splitArr := strings.Split(pass, "23")
+	splitArr := strings.Split(pass, "180")
 	splitArr=splitArr[1:]
 
 
