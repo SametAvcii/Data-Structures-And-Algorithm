@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	pass := "merhaba YM-LAB-3"
+	pass := "Merhaba YM-LAB-3"
 
 	hashPass := Hash(pass)
 	decPass := DecyrptHash(hashPass)
