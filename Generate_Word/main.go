@@ -35,7 +35,7 @@ func CreateWord(c chan string, combo string, words string, length int) {
 
 func main() {
 
-	arrUnique := createUniqueArray("123", "456", "789")
+	arrUnique := createUniqueArray("yakup", "merhaba", "bilgisayar")
 
 	f, err := os.Create("data.txt")
 	if err != nil {
@@ -50,9 +50,22 @@ func main() {
 	for combination := range GenerateCombinations(word, 5) {
 		defer f.Close()
 
-		if len(combination) != 5 {
+		arr2 := strings.Split(combination, "")
+		if len(combination) != 5 || arr2[2] == "y" {
 			continue
 		}
+		arr3 := []string{"a", "e", "ı", "i", "o", "ö", "u", "ü"}
+		var cont bool
+
+		for _,x := range arr3 {
+			if x == arr2[0] {
+				cont=true
+			}
+		}
+		if cont==true{
+			continue
+		}
+
 		_, err2 := f.WriteString(combination + "\n")
 		if err2 != nil {
 			log.Fatal(err2)
